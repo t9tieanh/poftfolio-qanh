@@ -42,8 +42,7 @@ img { display: block; max-width: 100%; height: auto; }
 .navbar {
   position: fixed; top: 0; left: 0; right: 0;
   height: var(--nav-h); z-index: 100;
-  background: rgba(245, 234, 212, 0.82);
-  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  background: var(--cream);
   border-bottom: 1px solid rgba(124, 26, 23, 0.12);
   transition: box-shadow .3s ease;
 }
@@ -646,11 +645,16 @@ a.tape-label:hover { transform: translateY(-2px) scale(1.04); box-shadow: 0 10px
   .p2-portrait-wrap { width: 74%; margin-inline: auto; }
   .p2-cols { grid-template-columns: 1fr; gap: 18px; }
   .p2-star10 { width: 130px; height: 130px; right: -30px; top: auto; bottom: 40px; opacity: .5; }
-  .p2-toc-title { font-size: 2.4rem; }
-  .p2-basket { width: 62%; }
-  .p2-phone { width: 16%; top: 60px; }
-  .toc-social { top: 60px; }
-  .toc-edit { top: 110px; }
+  .p2-toc { min-height: 0; text-align: center; }
+  .p2-toc-title { font-size: 2.4rem; margin-bottom: 6px; }
+  .p2-basket { width: 72%; max-width: 290px; margin: 16px auto 10px; }
+  .p2-phone { display: none; }
+  .toc-label {
+    position: static; transform: none;
+    display: block; text-align: center;
+    font-size: 1.4rem; line-height: 1.15; margin: 8px auto;
+  }
+  .toc-social br { display: none; }
 
   .p3-body { padding: 24px 18px; }
   .p3-laban-grid { max-width: 100%; }
