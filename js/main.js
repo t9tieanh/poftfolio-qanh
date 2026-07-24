@@ -50,4 +50,72 @@
     });
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(function (el) { revealer.observe(el); });
+
+  /* Image lightbox — Social Post (page 3) & Tixgo (page 4) */
+  const lightbox      = document.getElementById('lightbox');
+  const lightboxImg   = document.getElementById('lightboxImg');
+  const lightboxClose = document.getElementById('lightboxClose');
+
+  if (lightbox && lightboxImg) {
+    const posterImgs = document.querySelectorAll('#page-3 .poster img, #page-4 .poster img');
+
+    function openLightbox(img) {
+      lightboxImg.src = img.currentSrc || img.src;
+      lightboxImg.alt = img.alt || '';
+      lightbox.hidden = false;
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      lightbox.hidden = true;
+      lightboxImg.src = '';
+      document.body.style.overflow = '';
+    }
+
+    posterImgs.forEach(function (img) {
+      img.addEventListener('click', function () { openLightbox(img); });
+    });
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    /* click anywhere on the backdrop (but not the image itself) closes it */
+    lightbox.addEventListener('click', function (e) {
+      if (e.target !== lightboxImg) closeLightbox();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !lightbox.hidden) closeLightbox();
+    });
+  }
+
+  /* Language switch — VI / EN */
+  const langSwitch = document.getElementById('langSwitch');
+  if (langSwitch) {
+    const langBtns  = Array.from(langSwitch.querySelectorAll('.lang-btn'));
+    const i18nNodes = Array.from(document.querySelectorAll('[data-vi][data-en]'));
+    let currentLang;
+
+    try { currentLang = localStorage.getItem('pf-lang'); } catch (e) { currentLang = null; }
+    if (currentLang !== 'vi' && currentLang !== 'en') currentLang = 'en';
+
+    function applyLang(lang) {
+      currentLang = lang;
+      document.documentElement.setAttribute('lang', lang);
+      i18nNodes.forEach(function (el) {
+        const val = el.getAttribute('data-' + lang);
+        if (val == null) return;
+        if (el.hasAttribute('data-html')) el.innerHTML = val;
+        else el.textContent = val;
+      });
+      langBtns.forEach(function (b) {
+        const on = b.getAttribute('data-lang') === lang;
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      try { localStorage.setItem('pf-lang', lang); } catch (e) {}
+    }
+
+    langBtns.forEach(function (b) {
+      b.addEventListener('click', function () { applyLang(b.getAttribute('data-lang')); });
+    });
+
+    applyLang(currentLang);
+  }
 })();

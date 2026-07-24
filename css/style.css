@@ -53,11 +53,16 @@ img { display: block; max-width: 100%; height: auto; }
   display: flex; align-items: center; justify-content: space-between; gap: 16px;
 }
 .brand {
-  display: flex; align-items: baseline; gap: 8px;
+  display: flex; align-items: center; gap: 8px;
   font-family: var(--font-head); font-weight: 700; font-size: 1.25rem;
   color: var(--red); white-space: nowrap;
 }
-.brand-star { color: var(--red-deep); font-size: .9em; }
+.brand-avatar {
+  width: 34px; height: 34px; border-radius: 50%;
+  object-fit: cover; object-position: 50% 22%;
+  border: 2px solid var(--red-deep); flex: none;
+  background: var(--cream, #f2ecdd);
+}
 .brand-year { font-size: .72rem; font-weight: 500; color: var(--brown); letter-spacing: .3px; }
 .nav-links { display: flex; align-items: center; gap: 6px; }
 .nav-link {
@@ -182,6 +187,22 @@ img { display: block; max-width: 100%; height: auto; }
   letter-spacing: 1px;
 }
 
+/* ===================== COVER ANIMATIONS ===================== */
+.cover-star { animation: spin 14s linear infinite; transform-origin: 50% 50%; }
+.cover-title { animation: coverPop .8s cubic-bezier(.2, .8, .2, 1) both; }
+.folder { animation: coverRise 1s .12s cubic-bezier(.2, .8, .2, 1) both; }
+.tag-left  { animation: floatL 4s ease-in-out infinite; }
+.tag-right { animation: floatR 4.6s ease-in-out infinite; }
+.cover-title:hover .cover-star { animation-duration: 3s; }
+/* gentle slow spin on the other red starbursts */
+.p2-star10 { animation: spin 34s linear infinite; }
+.p5-star   { animation: spin 22s linear infinite; }
+
+@keyframes coverPop  { from { opacity: 0; transform: translateY(22px) scale(.92); } to { opacity: 1; transform: none; } }
+@keyframes coverRise { from { opacity: 0; transform: translateY(46px); }            to { opacity: 1; transform: none; } }
+@keyframes floatL { 0%, 100% { transform: rotate(-9deg) translateY(0); } 50% { transform: rotate(-9deg) translateY(-8px); } }
+@keyframes floatR { 0%, 100% { transform: rotate(6deg)  translateY(0); } 50% { transform: rotate(6deg)  translateY(-8px); } }
+
 /* ===================== SHARED: pills, bullets ===================== */
 .pill {
   display: inline-block;
@@ -247,12 +268,13 @@ img { display: block; max-width: 100%; height: auto; }
 /* left column */
 .p2-left { position: relative; z-index: 1; }
 .p2-portrait-wrap {
-  width: 78%;
-  border-radius: 4px 4px 0 0;
-  overflow: hidden;
-  margin-bottom: 14px;
+  width: 96%;
+  margin: 0 auto 14px;   /* centered */
 }
-.p2-portrait { width: 100%; display: block; }
+.p2-portrait {
+  width: 100%; display: block;
+  filter: drop-shadow(4px 8px 10px rgba(124, 26, 23, 0.20));
+}
 .p2-item { margin: 2px 0 12px; }
 .p2-h { font-family: var(--font-body); font-weight: 800; font-size: .82rem; color: var(--red-deep); line-height: 1.35; }
 .p2-when { font-weight: 700; color: var(--red); font-size: .78rem; }
@@ -283,8 +305,7 @@ img { display: block; max-width: 100%; height: auto; }
 .app.ai { background: #1e0c00; color: #ff9a00; }
 .app.ps { background: #001a30; color: #31c5f0; }
 .app.pr { background: #16002e; color: #d68cff; }
-.app.cc { background: #000; border-color: #000; }
-.app.cc svg { width: 21px; height: 21px; }
+.app-img { padding: 0; border: 0; object-fit: cover; background: #fff; }
 
 .p2-contact-list { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-top: 4px; }
 .p2-contact-list li { display: flex; align-items: center; gap: 9px; font-size: .76rem; color: var(--ink); word-break: break-all; }
@@ -354,6 +375,9 @@ img { display: block; max-width: 100%; height: auto; }
 }
 .label-laban { background: linear-gradient(180deg, #ff9d2e, #f47c1b); }
 .label-learnova { background: linear-gradient(180deg, #3f9be0, #2f6fc0); }
+/* brand tape-labels that link out */
+a.tape-label { cursor: pointer; transition: transform .18s ease, box-shadow .18s ease, filter .18s ease; }
+a.tape-label:hover { transform: translateY(-2px) scale(1.04); box-shadow: 0 10px 20px rgba(0,0,0,.26); filter: brightness(1.06); animation-play-state: paused; }
 
 /* ===================== PAGE 3 — SOCIAL POST ===================== */
 .p3 {
@@ -379,8 +403,8 @@ img { display: block; max-width: 100%; height: auto; }
           mask: repeating-linear-gradient(90deg, #000 0 46px, transparent 46px 138px);
 }
 .p3-banner-star { position: relative; z-index: 1; width: 40px; height: 40px; fill: #fff; flex-shrink: 0; }
-.p3-banner-text { position: relative; z-index: 1; }
 .p3-banner-text {
+  position: relative; z-index: 1;
   font-family: var(--font-head); font-weight: 700;
   font-size: clamp(1.4rem, 4vw, 2.2rem); color: #fff;
   letter-spacing: 3px;
@@ -389,9 +413,11 @@ img { display: block; max-width: 100%; height: auto; }
 }
 .p3-body {
   position: relative;
+  /* yellow band on the left fading into blue — like the PDF template */
   background:
-    radial-gradient(120% 90% at 80% 20%, #dff0fd 0%, #bfe0fb 30%, #6fb0 40%, #4a94db 70%, #2f6fc0 100%);
-  background-color: #4a94db;
+    radial-gradient(62% 96% at 0% 34%, #f3e759 0%, #ece55f 15%, rgba(150,205,165,.4) 38%, rgba(120,190,220,0) 60%),
+    linear-gradient(128deg, #a3dac2 0%, #6fc2dd 26%, #4a9fd8 56%, #2f79c8 100%);
+  background-color: #4a9fd8;
   padding: 34px 34px 30px;
   overflow: hidden;
 }
@@ -449,6 +475,29 @@ img { display: block; max-width: 100%; height: auto; }
   box-shadow: 0 8px 20px rgba(10,30,60,.2); text-align: center;
 }
 
+/* white 4-point sparkles */
+.p3-spark { position: absolute; z-index: 1; fill: #fff; filter: drop-shadow(0 0 6px rgba(255,255,255,.6)); pointer-events: none; }
+.p3-spark.sp1 { width: 90px;  height: 90px;  left: 2%;  top: 240px; }
+.p3-spark.sp2 { width: 46px;  height: 46px;  left: 9%;  top: 150px; opacity: .9; }
+.p3-spark.sp3 { width: 60px;  height: 60px;  left: 14%; bottom: 120px; opacity: .85; }
+
+/* ===================== SOCIAL POST — playful motion ===================== */
+.p3-overbow { animation: p3FloatBow 5s ease-in-out infinite; }
+.p3-play    { animation: p3Sway 3.6s ease-in-out infinite; transform-origin: 50% 60%; display: inline-block; }
+.p3-ystar   { animation: spin 9s linear infinite; }
+.p3-bstar   { animation: p3Pulse 6.5s ease-in-out infinite; transform-origin: 50% 50%; }
+.p3-bstar.b2 { animation-delay: 1.3s; }
+.p3-bstar.b3 { animation-delay: 2.4s; }
+.p3-spark   { animation: p3Twinkle 4s ease-in-out infinite; transform-origin: 50% 50%; }
+.p3-spark.sp2 { animation-delay: 1s; }
+.p3-spark.sp3 { animation-delay: 2s; }
+.label-laban, .label-learnova { animation: p3Sway 4.6s ease-in-out infinite; transform-origin: 15% 50%; }
+
+@keyframes p3FloatBow { 0%,100% { transform: rotate(-4deg) translateY(0); } 50% { transform: rotate(-1deg) translateY(-11px); } }
+@keyframes p3Sway     { 0%,100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+@keyframes p3Pulse    { 0%,100% { transform: scale(1) rotate(0deg); } 50% { transform: scale(1.13) rotate(10deg); } }
+@keyframes p3Twinkle  { 0%,100% { transform: scale(.7) rotate(0deg); opacity: .5; } 50% { transform: scale(1.1) rotate(35deg); opacity: 1; } }
+
 /* ===================== PAGE 4 — TIXGO ===================== */
 .p4 {
   max-width: 1080px; margin: 46px auto;
@@ -489,6 +538,15 @@ img { display: block; max-width: 100%; height: auto; }
   border: 2px solid #ffd9c0;
   font-family: var(--font-head); letter-spacing: 1px;
   margin-bottom: 16px;
+}
+
+.p4-caption {
+  position: relative; z-index: 2;
+  max-width: 660px; margin: 0 auto 22px; text-align: center;
+  background: rgba(255, 250, 240, .96); color: #7c1a17;
+  font-size: .9rem; font-weight: 600; line-height: 1.6;
+  padding: 16px 24px; border-radius: 16px;
+  box-shadow: 0 8px 22px rgba(120, 20, 10, .28);
 }
 
 .p4-grid {
@@ -585,7 +643,7 @@ img { display: block; max-width: 100%; height: auto; }
   .p2, .p3, .p4, .p5 { margin: 26px 14px; }
   .p2-body { padding: 26px 20px 16px; }
   .p2-top { grid-template-columns: 1fr; gap: 22px; }
-  .p2-portrait-wrap { width: 58%; }
+  .p2-portrait-wrap { width: 74%; margin-inline: auto; }
   .p2-cols { grid-template-columns: 1fr; gap: 18px; }
   .p2-star10 { width: 130px; height: 130px; right: -30px; top: auto; bottom: 40px; opacity: .5; }
   .p2-toc-title { font-size: 2.4rem; }
@@ -603,7 +661,7 @@ img { display: block; max-width: 100%; height: auto; }
 
   .p4-body { padding: 24px 18px 30px; }
   .p4-grid { grid-template-columns: 1fr 1fr; }
-  .p4-grid .poster.wide { grid-column: span 2; }
+  .p4-grid .poster.feature { grid-column: span 2; grid-row: span 2; }
 
   .p5-body { padding: 24px 18px 30px; }
   .p5-caption { max-width: 100%; }
@@ -613,10 +671,78 @@ img { display: block; max-width: 100%; height: auto; }
 
 @media (max-width: 430px) {
   .p4-grid { grid-template-columns: 1fr; }
-  .p4-grid .poster.wide { grid-column: span 1; }
+  .p4-grid .poster.feature { grid-column: span 1; grid-row: span 1; aspect-ratio: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; }
+}
+
+/* ===================== IMAGE LIGHTBOX ===================== */
+/* clickable posters in Social Post & Tixgo */
+#page-3 .poster img,
+#page-4 .poster img { cursor: zoom-in; }
+
+.lightbox {
+  position: fixed; inset: 0; z-index: 1000;
+  display: flex; align-items: center; justify-content: center;
+  padding: 4vmin;
+  background: rgba(60, 20, 16, 0.82);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  opacity: 0; animation: lightboxIn .22s ease forwards;
+  cursor: zoom-out;
+}
+.lightbox[hidden] { display: none; }
+.lightbox-img {
+  max-width: min(92vw, 1100px); max-height: 90vh;
+  width: auto; height: auto;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+  border: 4px solid var(--white);
+  transform: scale(.94); animation: lightboxImgIn .26s cubic-bezier(.2, .8, .2, 1) forwards;
+  cursor: default;
+}
+.lightbox-close {
+  position: absolute; top: 18px; right: 22px;
+  width: 46px; height: 46px; border: 0; border-radius: 50%;
+  background: var(--white); color: var(--red-deep);
+  font-size: 1.9rem; line-height: 1; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  transition: transform .18s ease, background .18s ease;
+}
+.lightbox-close:hover { transform: scale(1.08) rotate(90deg); background: var(--cream); }
+
+@keyframes lightboxIn { to { opacity: 1; } }
+@keyframes lightboxImgIn { to { transform: scale(1); } }
+
+/* ===================== LANGUAGE SWITCH ===================== */
+.lang-switch {
+  position: fixed; right: 0; top: 50%; transform: translateY(-50%);
+  z-index: 900;
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 5px;
+  background: rgba(245, 234, 212, 0.9);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(124, 26, 23, 0.18);
+  border-right: 0;
+  border-radius: 14px 0 0 14px;
+  box-shadow: -4px 6px 20px rgba(124, 26, 23, 0.14);
+}
+.lang-btn {
+  font-family: var(--font-head); font-weight: 700; font-size: .82rem;
+  letter-spacing: .5px;
+  width: 40px; height: 34px; border: 0; border-radius: 10px;
+  background: transparent; color: var(--brown);
+  cursor: pointer; transition: background .2s ease, color .2s ease, transform .15s ease;
+}
+.lang-btn:hover { color: var(--red); background: rgba(190, 52, 35, 0.1); }
+.lang-btn.active { background: var(--red); color: var(--white); }
+.lang-btn.active:hover { background: var(--red-deep); color: var(--white); }
+
+@media (max-width: 640px) {
+  .lang-switch { flex-direction: row; top: auto; bottom: 14px; right: 14px; transform: none;
+    border-radius: 12px; border-right: 1px solid rgba(124, 26, 23, 0.18); }
+  .lang-btn { width: 38px; height: 32px; }
 }
