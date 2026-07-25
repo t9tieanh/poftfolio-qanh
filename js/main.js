@@ -118,4 +118,26 @@
 
     applyLang(currentLang);
   }
+
+  /* Intro popup → Behance (once per session) */
+  const pfModal = document.getElementById('pfModal');
+  if (pfModal) {
+    function openPf()  { pfModal.classList.add('open'); document.body.classList.add('pf-lock'); }
+    function closePf() {
+      pfModal.classList.remove('open');
+      document.body.classList.remove('pf-lock');
+      try { sessionStorage.setItem('pf-intro-seen', '1'); } catch (e) {}
+    }
+    pfModal.querySelectorAll('[data-pf-close]').forEach(function (el) {
+      el.addEventListener('click', closePf);
+    });
+    pfModal.addEventListener('click', function (e) { if (e.target === pfModal) closePf(); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && pfModal.classList.contains('open')) closePf();
+    });
+
+    let seen = false;
+    try { seen = sessionStorage.getItem('pf-intro-seen') === '1'; } catch (e) {}
+    if (!seen) window.setTimeout(openPf, 900);
+  }
 })();

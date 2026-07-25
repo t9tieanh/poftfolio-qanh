@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&family=Chivo+Mono:wght@600;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="css/style.css?v=2" />
+  <link rel="stylesheet" href="css/style.css?v=5" />
 </head>
 <body>
 
@@ -298,6 +298,59 @@
     <img class="lightbox-img" id="lightboxImg" src="" alt="" />
   </div>
 
-  <script src="js/main.js?v=2"></script>
+  <!-- ===== INTRO POPUP → BEHANCE ===== -->
+  <div class="pf-modal" id="pfModal" role="dialog" aria-modal="true" aria-labelledby="pfTitle">
+    <div class="pf-card">
+      <button class="pf-close" type="button" data-pf-close aria-label="Close">&times;</button>
+
+      <div class="pf-media">
+        <img src="images/page-02.jpg" alt="Preview bản thiết kế portfolio" loading="lazy" />
+        <div class="pf-media-card">
+          <span class="pf-media-ico">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l1.7 6.6L20 10l-6.3 1.4L12 18l-1.7-6.6L4 10l6.3-1.4z"/></svg>
+          </span>
+          <span class="pf-media-txt">
+            <b>Portfolio 2026</b>
+            <small data-vi="THIẾT KẾ ĐỒ HỌA · DỰNG VIDEO" data-en="GRAPHIC DESIGN · EDIT VIDEO">GRAPHIC DESIGN · EDIT VIDEO</small>
+          </span>
+        </div>
+      </div>
+
+      <div class="pf-body">
+
+        <h2 class="pf-title" id="pfTitle">
+          <span data-vi="Khám phá trọn bộ" data-en="Explore the full">Explore the full</span>
+          <span class="pf-accent" data-vi="Thiết kế trên Behance" data-en="Design on Behance">Design on Behance</span>
+        </h2>
+
+        <p class="pf-sub" data-vi="Xem toàn bộ portfolio — bố cục, case study và hình ảnh — ở độ phân giải cao trên Behance."
+           data-en="See the complete portfolio — layouts, case studies and visuals — in high resolution on Behance.">See the complete portfolio — layouts, case studies and visuals — in high resolution on Behance.</p>
+
+        <div class="pf-chips">
+          <div class="pf-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18 1.8 1.8 0 0 0 1.8-1.8 1.8 1.8 0 0 1 1.8-1.8H18a3 3 0 0 0 3-3 9 9 0 0 0-9-8.4z"/><circle cx="7.5" cy="11" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="8" r="1" fill="currentColor" stroke="none"/><circle cx="16" cy="11" r="1" fill="currentColor" stroke="none"/></svg>
+            <span data-vi="Thiết kế đồ họa" data-en="Graphic Design">Graphic Design</span>
+          </div>
+          <div class="pf-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3z"/></svg>
+            <span data-vi="Dựng video" data-en="Edit Video">Edit Video</span>
+          </div>
+        </div>
+
+        <div class="pf-actions">
+          <button type="button" class="pf-cta pf-cta-primary" data-pf-close>
+            <span data-vi="Xem tiếp trang web" data-en="Continue to website">Continue to website</span>
+            <svg class="pf-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+          <a class="pf-cta pf-cta-ghost" href="https://www.behance.net/gallery/252479767/Portfolio" target="_blank" rel="noopener" data-pf-close>
+            <span class="pf-be">Be</span>
+            <span data-vi="Xem trên Behance" data-en="View on Behance">View on Behance</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js?v=3"></script>
 </body>
 </html>

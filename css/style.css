@@ -750,3 +750,146 @@ a.tape-label:hover { transform: translateY(-2px) scale(1.04); box-shadow: 0 10px
     border-radius: 12px; border-right: 1px solid rgba(124, 26, 23, 0.18); }
   .lang-btn { width: 38px; height: 32px; }
 }
+
+/* ============================================================
+   INTRO POPUP → BEHANCE
+   ============================================================ */
+body.pf-lock { overflow: hidden; }
+
+.pf-modal {
+  position: fixed; inset: 0; z-index: 600;
+  display: flex; align-items: center; justify-content: center;
+  padding: 22px;
+  background: rgba(40, 14, 10, 0.55);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  opacity: 0; visibility: hidden;
+  transition: opacity .32s ease, visibility .32s ease;
+}
+.pf-modal.open { opacity: 1; visibility: visible; }
+
+.pf-card {
+  position: relative;
+  width: 100%; max-width: 900px;
+  max-height: min(92vh, 640px);
+  background: #fffaf2;
+  border-radius: 26px;
+  overflow: hidden;
+  display: grid; grid-template-columns: 1.02fr 1.15fr;
+  box-shadow: 0 40px 90px rgba(40, 12, 8, 0.45);
+  transform: translateY(16px) scale(.96); opacity: 0;
+  transition: opacity .35s ease, transform .45s cubic-bezier(.2, .8, .2, 1);
+}
+.pf-modal.open .pf-card { transform: none; opacity: 1; }
+
+/* left media */
+.pf-media { position: relative; overflow: hidden; background: #e9dcc4; min-height: 300px; }
+.pf-media > img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 12%; }
+.pf-media::after {
+  content: ""; position: absolute; inset: auto 0 0 0; height: 45%;
+  background: linear-gradient(to top, rgba(20, 8, 6, 0.42), transparent);
+}
+.pf-media-card {
+  position: absolute; left: 16px; right: 16px; bottom: 16px; z-index: 2;
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 14px; border-radius: 14px;
+  background: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: #fff;
+}
+.pf-media-ico {
+  flex: none; width: 38px; height: 38px; border-radius: 10px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--red); color: #fff;
+}
+.pf-media-ico svg { width: 20px; height: 20px; }
+.pf-media-txt { display: flex; flex-direction: column; line-height: 1.2; }
+.pf-media-txt b { font-family: var(--font-head); font-weight: 600; font-size: 1rem; }
+.pf-media-txt small { font-size: .64rem; letter-spacing: 1.2px; opacity: .85; }
+
+/* right content */
+.pf-body {
+  padding: 42px 44px;
+  display: flex; flex-direction: column; justify-content: center; gap: 16px;
+  overflow-y: auto;
+}
+.pf-badge {
+  align-self: flex-start;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 7px 15px; border-radius: 999px;
+  background: rgba(190, 52, 35, 0.10); color: var(--red-deep);
+  font-family: var(--font-mono); font-weight: 700; font-size: .72rem;
+  letter-spacing: 1.5px; text-transform: uppercase;
+}
+.pf-badge svg { width: 15px; height: 15px; }
+.pf-title {
+  font-family: var(--font-head); font-weight: 700;
+  font-size: clamp(1.8rem, 3.3vw, 2.55rem); line-height: 1.08;
+  color: var(--ink); display: flex; flex-direction: column;
+}
+.pf-title .pf-accent {
+  background: linear-gradient(100deg, var(--red), #e0552f);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.pf-sub { color: #7a6456; font-size: .95rem; line-height: 1.6; max-width: 42ch; }
+
+.pf-chips { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 2px; }
+.pf-chip {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 14px; border-radius: 14px;
+  background: #fff; border: 1.5px solid rgba(190, 52, 35, 0.16);
+  font-weight: 700; font-size: .86rem; color: var(--ink);
+  transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+.pf-chip svg { flex: none; width: 20px; height: 20px; color: var(--red); }
+.pf-chip:hover { border-color: var(--red); transform: translateY(-2px); box-shadow: 0 8px 18px rgba(190, 52, 35, 0.14); }
+
+.pf-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+.pf-cta {
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  padding: 15px 24px; border-radius: 16px; border: 0; cursor: pointer;
+  font-family: var(--font-head); font-weight: 600; font-size: 1.02rem;
+  transition: transform .22s ease, box-shadow .22s ease, filter .22s ease, border-color .2s ease, background .2s ease;
+}
+/* primary — Continue to website (red) */
+.pf-cta-primary {
+  background: linear-gradient(100deg, var(--red), #a9281b); color: #fff;
+  box-shadow: 0 14px 28px rgba(190, 52, 35, 0.34);
+}
+.pf-cta-primary:hover { transform: translateY(-2px); box-shadow: 0 20px 36px rgba(190, 52, 35, 0.44); filter: brightness(1.05); }
+/* secondary — Behance (white / outline, less prominent) */
+.pf-cta-ghost {
+  background: #fff; color: var(--red-deep);
+  border: 1.5px solid rgba(190, 52, 35, 0.28);
+  box-shadow: 0 4px 12px rgba(120, 20, 10, 0.06);
+}
+.pf-cta-ghost:hover { transform: translateY(-2px); border-color: var(--red); box-shadow: 0 10px 20px rgba(190, 52, 35, 0.14); }
+.pf-be {
+  flex: none; display: inline-flex; align-items: center; justify-content: center;
+  width: 26px; height: 26px; border-radius: 6px;
+  background: var(--red); color: #fff; font-family: var(--font-body); font-weight: 800; font-size: .78rem;
+}
+.pf-arrow { width: 20px; height: 20px; transition: transform .22s ease; }
+.pf-cta:hover .pf-arrow { transform: translateX(4px); }
+
+.pf-close {
+  position: absolute; top: 16px; right: 16px; z-index: 5;
+  width: 40px; height: 40px; border-radius: 50%; border: 0; cursor: pointer;
+  background: rgba(60, 32, 24, 0.10); color: var(--ink);
+  font-size: 1.5rem; line-height: 1;
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: background .2s ease, transform .2s ease;
+}
+.pf-close:hover { background: rgba(60, 32, 24, 0.20); transform: rotate(90deg); }
+
+@media (max-width: 760px) {
+  .pf-card { grid-template-columns: 1fr; max-height: 92vh; }
+  .pf-media { min-height: 0; height: 176px; }
+  .pf-media > img { object-position: 50% 0; }
+  .pf-media-card { left: 14px; right: 14px; bottom: 12px; }
+  .pf-body { padding: 26px 24px 28px; gap: 14px; }
+  .pf-close { background: rgba(255, 255, 255, 0.85); }
+}
+@media (max-width: 380px) {
+  .pf-chips { grid-template-columns: 1fr; }
+}
